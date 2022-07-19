@@ -1,17 +1,38 @@
 package passwordvalidation;
 
 public class PasswordValidation {
+    int min = 8;
 
     public boolean isValid(String PASSWORD) {
-        if (isLargerThanEightChar(PASSWORD) && hasCapitalLetter(PASSWORD) && hasLowerLetter(PASSWORD)
+        if (isLargerThanMin(PASSWORD) && hasCapitalLetter(PASSWORD) && hasLowerLetter(PASSWORD)
                 && hasUnderscore(PASSWORD) && hasNumber(PASSWORD)) {
             return true;
         } else
             return false;
     }
 
-    public boolean isLargerThanEightChar(String PASSWORD) {
-        if (PASSWORD.length() > 8) {
+    public boolean isValid2(String PASSWORD) {
+        this.min = 6;
+        if (isLargerThanMin(PASSWORD) && hasCapitalLetter(PASSWORD) && hasLowerLetter(PASSWORD)
+                && hasNumber(PASSWORD)) {
+            return true;
+        } else
+            return false;
+
+    }
+
+    public boolean isValid3(String PASSWORD) {
+        this.min = 16;
+        if (isLargerThanMin(PASSWORD) && hasCapitalLetter(PASSWORD) && hasLowerLetter(PASSWORD)
+                && hasUnderscore(PASSWORD)) {
+            return true;
+        } else
+            return false;
+
+    }
+
+    public boolean isLargerThanMin(String PASSWORD) {
+        if (PASSWORD.length() > min) {
             return true;
         }
         return false;

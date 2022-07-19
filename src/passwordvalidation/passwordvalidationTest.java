@@ -11,14 +11,14 @@ public class passwordvalidationTest {
     public void validate_password_when_it_has_more_than_8_characters(){
         final String MORE_THAN_EIGHT_CHAR_PASSWORD = "1234567890"; 
         PasswordValidation validation = new PasswordValidation();
-        assertTrue(MORE_THAN_EIGHT_CHAR_PASSWORD, validation.isLargerThanEightChar(MORE_THAN_EIGHT_CHAR_PASSWORD));
+        assertTrue(MORE_THAN_EIGHT_CHAR_PASSWORD, validation.isLargerThanMin(MORE_THAN_EIGHT_CHAR_PASSWORD));
     }
 
     @Test 
     public void dont_validate_password_when_it_has_less_than_8_characters(){
         final String EIGHT_OR_LESS_CHAR_PASSWORD = "12345678"; 
         PasswordValidation validation = new PasswordValidation();
-        assertFalse(EIGHT_OR_LESS_CHAR_PASSWORD, validation.isLargerThanEightChar(EIGHT_OR_LESS_CHAR_PASSWORD));
+        assertFalse(EIGHT_OR_LESS_CHAR_PASSWORD, validation.isLargerThanMin(EIGHT_OR_LESS_CHAR_PASSWORD));
     }
 
     @Test
@@ -78,18 +78,18 @@ public class passwordvalidationTest {
 
     @Test
     public void return_when_a_password_is_valid(){
-        final String VALID_PASSWORD = "A_rmari_0";
+        final String VALID_PASSWORD = "123456_Az";
         PasswordValidation validation = new PasswordValidation();
         assertTrue(validation.isValid(VALID_PASSWORD));
     }
 
     @Test
     public void return_when_a_password_is_invalid(){
-        final String NO_UNDERSCORE_PASSWORD = "ArmariII0";
-        final String NO_CAPITAL_PASSWORD = "a_rmari_0";
-        final String NO_LOWER_PASSWORD = "A_RMARI_0";
-        final String EIGHT_CHAR_PASSWORD = "Armari_0";
-        final String NO_NUMBER_PASSWORD = "A_rmari_O";
+        final String NO_UNDERSCORE_PASSWORD = "1234567Az";
+        final String NO_CAPITAL_PASSWORD = "123456_az";
+        final String NO_LOWER_PASSWORD = "123456_AZ";
+        final String EIGHT_CHAR_PASSWORD = "12345_Az";
+        final String NO_NUMBER_PASSWORD = "abcdef_Az";
 
         PasswordValidation validation = new PasswordValidation();
         assertFalse(validation.isValid(NO_UNDERSCORE_PASSWORD));
@@ -97,5 +97,46 @@ public class passwordvalidationTest {
         assertFalse(validation.isValid(NO_LOWER_PASSWORD));
         assertFalse(validation.isValid(EIGHT_CHAR_PASSWORD));
         assertFalse(validation.isValid(NO_NUMBER_PASSWORD));
+    }
+    @Test
+    public void return_when_a_password_is_valid2(){
+        final String VALID_PASSWORD = "12345Az";
+        PasswordValidation validation = new PasswordValidation();
+        assertTrue(validation.isValid2(VALID_PASSWORD));
+    }
+
+    @Test
+    public void return_when_a_password_is_invalid2(){
+        final String NO_CAPITAL_PASSWORD = "12345az";
+        final String NO_LOWER_PASSWORD = "12345AZ";
+        final String SIX_CHAR_PASSWORD = "1234Az";
+        final String NO_NUMBER_PASSWORD = "AbCdEfG";
+
+        PasswordValidation validation = new PasswordValidation();
+        assertFalse(validation.isValid2(NO_CAPITAL_PASSWORD));
+        assertFalse(validation.isValid2(NO_LOWER_PASSWORD));
+        assertFalse(validation.isValid2(SIX_CHAR_PASSWORD));
+        assertFalse(validation.isValid2(NO_NUMBER_PASSWORD));
+    }
+    @Test
+    public void return_when_a_password_is_valid3(){
+        final String VALID_PASSWORD = "ABCDEFGH_abcdefgh";
+        PasswordValidation validation = new PasswordValidation();
+        assertTrue(validation.isValid3(VALID_PASSWORD));
+    }
+
+    @Test
+    public void return_when_a_password_is_invalid3(){
+        final String NO_UNDERSCORE_PASSWORD = "ABCDEFGHIabcdefgh";
+        final String NO_CAPITAL_PASSWORD = "abcdefgh_abcdefgh";
+        final String NO_LOWER_PASSWORD = "ABCDEFGH_ABCDEFGH";
+        final String SIXTEEN_CHAR_PASSWORD = "ABCDEFG__abcdefg";
+
+        PasswordValidation validation = new PasswordValidation();
+        assertFalse(validation.isValid3(NO_UNDERSCORE_PASSWORD));
+        assertFalse(validation.isValid3(NO_CAPITAL_PASSWORD));
+        assertFalse(validation.isValid3(NO_LOWER_PASSWORD));
+        assertFalse(validation.isValid3(SIXTEEN_CHAR_PASSWORD));
+
     }
 }
