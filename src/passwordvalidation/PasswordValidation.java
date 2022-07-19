@@ -1,34 +1,58 @@
 package passwordvalidation;
 
 public class PasswordValidation {
-    int min = 8;
+    private int min = 8;
 
     public boolean isValid(String PASSWORD) {
-        if (isLargerThanMin(PASSWORD) && hasCapitalLetter(PASSWORD) && hasLowerLetter(PASSWORD)
-                && hasUnderscore(PASSWORD) && hasNumber(PASSWORD)) {
-            return true;
-        } else
-            return false;
+        boolean isValid = true;
+
+        if (!isLargerThanMin(PASSWORD)) {
+            isValid = false;
+        }
+        if (!hasCapitalLetter(PASSWORD)) {
+            isValid = false;
+        }
+        if (!hasLowerLetter(PASSWORD)) {
+            isValid = false;
+        }
+        if (!hasNumber(PASSWORD)) {
+            isValid = false;
+        }
+        if (!hasUnderscore(PASSWORD)) {
+            isValid = false;
+        }
+        return isValid;
     }
 
-    public boolean isValid2(String PASSWORD) {
-        this.min = 6;
-        if (isLargerThanMin(PASSWORD) && hasCapitalLetter(PASSWORD) && hasLowerLetter(PASSWORD)
-                && hasNumber(PASSWORD)) {
-            return true;
-        } else
-            return false;
+    public boolean isValid(String PASSWORD, int min, boolean capital, boolean lower, boolean number,
+            boolean underscore) {
+        this.min = min;
+        boolean isValid = true;
 
-    }
-
-    public boolean isValid3(String PASSWORD) {
-        this.min = 16;
-        if (isLargerThanMin(PASSWORD) && hasCapitalLetter(PASSWORD) && hasLowerLetter(PASSWORD)
-                && hasUnderscore(PASSWORD)) {
-            return true;
-        } else
-            return false;
-
+        if (!isLargerThanMin(PASSWORD)) {
+            isValid = false;
+        }
+        if (capital) {
+            if (!hasCapitalLetter(PASSWORD)) {
+                isValid = false;
+            }
+        }
+        if (lower) {
+            if (!hasLowerLetter(PASSWORD)) {
+                isValid = false;
+            }
+        }
+        if (number) {
+            if (!hasNumber(PASSWORD)) {
+                isValid = false;
+            }
+        }
+        if (underscore) {
+            if (!hasUnderscore(PASSWORD)) {
+                isValid = false;
+            }
+        }
+        return isValid;
     }
 
     public boolean isLargerThanMin(String PASSWORD) {
@@ -82,5 +106,4 @@ public class PasswordValidation {
         }
         return false;
     }
-
 }
